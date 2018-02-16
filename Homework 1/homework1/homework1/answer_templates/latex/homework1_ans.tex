@@ -30,7 +30,9 @@ Only one late period is allowed for this homework (11:59pm Monday 2/26)
 \vfill
 \vfill
 
-Discussion Group (People with whom you discussed ideas used in your answers): \\\\\\
+Discussion Group (People with whom you discussed ideas used in your answers):
+
+ Georgios Chantzialexiou \\\\\\
 On-line or hardcopy documents used as part of your answers: \\\\\\
 \vfill
 
@@ -38,7 +40,7 @@ On-line or hardcopy documents used as part of your answers: \\\\\\
 
 I acknowledge and accept the Honor Code.\\*[3ex]
 \bigskip
-\textit{(Signed)}\hrulefill
+\textit{(Signed)} \underline{CM} 
 
 If you are not printing this document out, please type your initials above.
 
@@ -47,7 +49,12 @@ If you are not printing this document out, please type your initials above.
 
 \pagebreak[4]
 \section*{Answer to Question 1}
+The algorithm consists of two phases, the Map Phase and the Reduce Phase. I will go on to describe what happens in each phase.
 
+Map Phase:
+In this phase we emit <key, r, m>. The key value will be the user id for the user that will get the recommendation, the second value (r) will be the user id of the user that will be recommended to the user with the key id and the third value will be the number or mutual friends for the key and r users. Since we do not want to recommend users that are already friends with the key user, we will set m=-1 for all users that are already friends with key user. 
+
+Reduce Phase: 
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
 
