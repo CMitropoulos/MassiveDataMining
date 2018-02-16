@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{fullpage}
 \usepackage{url}
+\usepackage{listings}
 \begin{document}
 \thispagestyle{empty}
 \parindent 0pt
@@ -30,7 +31,9 @@ Only one late period is allowed for this homework (11:59pm Monday 2/26)
 \vfill
 \vfill
 
-Discussion Group (People with whom you discussed ideas used in your answers): \\\\\\
+Discussion Group (People with whom you discussed ideas used in your answers):
+
+ Georgios Chantzialexiou \\\\\\
 On-line or hardcopy documents used as part of your answers: \\\\\\
 \vfill
 
@@ -38,7 +41,7 @@ On-line or hardcopy documents used as part of your answers: \\\\\\
 
 I acknowledge and accept the Honor Code.\\*[3ex]
 \bigskip
-\textit{(Signed)}\hrulefill
+\textit{(Signed)} \underline{CM} 
 
 If you are not printing this document out, please type your initials above.
 
@@ -47,7 +50,27 @@ If you are not printing this document out, please type your initials above.
 
 \pagebreak[4]
 \section*{Answer to Question 1}
+The algorithm consists of two phases, the Map Phase and the Reduce Phase. I will go on to describe what happens in each phase.
 
+\subsection*{Map Phase}
+In this phase we emit $<$ key, r, m $>$ . The key value will be the user id for the user that will get the recommendation, the second value (r) will be the user id of the user that will be recommended to the key user and the third value will be the id of the mutual friend. Since we do not want to recommend users that are already friends with the key user, we will set m=-1 for all users that are already friends with key user. 
+More specifically we emit the following:
+\begin{lstlisting}[language=Java]
+for (user : Users)
+	for (friend : user.friendsList)
+		emit <user, friend, -1 >
+\end{lstlisting}
+\begin{lstlisting}[language=Java]
+for (user : Users)
+	for(friend1 : user.friendsList)
+		for(friend2 : user.friendList)
+			emit<friend1, friend2, user>
+\end{lstlisting}
+\textit{Note: These are all the possible combinations of friends in the user friends list.}
+
+\subsection*{Reduce Phase} 
+We just sum up how many mutual friends they have been between the key and r users. If any of them has mutual friend -1 (m=-1) they are already friends and we don't make that recommendation. 
+Finally we recommend the 10 friends with the most mutual friends (or fewer if there are not that many).
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
 
