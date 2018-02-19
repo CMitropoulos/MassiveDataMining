@@ -92,9 +92,9 @@ public class FriendRecommendation {
         public void reduce(LongWritable key, Iterable<FriendRecommendationWritable> values, Context context)
                 throws IOException, InterruptedException {
 
-            // key is the recommended friend, and value is the list of mutual friends
+            
             final HashMap<Long, List<Long>> mutualFriends = new HashMap<Long, List<Long>>();
-
+	//val.user is the recommended user and val.mutualFriend is the mutual friend between key and val.user
             for (FriendRecommendationWritable val : values) {
                 final Boolean isAlreadyFriend = (val.mutualFriend == -1); //if true they are already friends
                 final Long friend = val.user;

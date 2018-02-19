@@ -50,28 +50,46 @@ If you are not printing this document out, please type your initials above.
 
 \pagebreak[4]
 \section*{Answer to Question 1}
+The source code is attached named FriendRecommendation.java. \\
 The algorithm consists of two phases, the Map Phase and the Reduce Phase. I will go on to describe what happens in each phase.
 
 \subsection*{Map Phase}
-In this phase we emit $<$ key, r, m $>$ . The key value will be the user id for the user that will get the recommendation, the second value (r) will be the user id of the user that will be recommended to the key user and the third value will be the id of the mutual friend. Since we do not want to recommend users that are already friends with the key user, we will set m=-1 for all users that are already friends with key user. 
+In this phase we write $<$ key, r, m $>$ . The key value will be the user id for the user that will get the recommendation, the second value (r) will be the user id of the user that will be recommended to the key user and the third value will be the id of the mutual friend. Since we do not want to recommend users that are already friends with the key user, we will set m=-1 for all users that are already friends with key user. 
 More specifically we emit the following:
 \begin{lstlisting}[language=Java]
 for (user : Users)
 	for (friend : user.friendsList)
-		emit <user, friend, -1 >
+		write <user, friend, -1 >
 \end{lstlisting}
 \begin{lstlisting}[language=Java]
 for (user : Users)
 	for(friend1 : user.friendsList)
 		for(friend2 : user.friendList)
-			emit<friend1, friend2, user>
+			write <friend1, friend2, user>
 \end{lstlisting}
 \textit{Note: These are all the possible combinations of friends in the user friends list.}
 
 \subsection*{Reduce Phase} 
-We just sum up how many mutual friends they have been between the key and r users. If any of them has mutual friend -1 (m=-1) they are already friends and we don't make that recommendation. 
-We create a HashMap with users as keys and the list of recommendations as the value
-Finally we recommend the 10 friends with the most mutual friends (or fewer if there are not that many). 
+The basic idea is that we just sum up how many mutual friends they have been between the key and r users. If any of them has mutual friend -1 (m=-1) they are already friends and we don't make that recommendation. \\
+More specifically:\\
+\begin{enumerate}
+\item For each key we create a HashMap. This HashMap has the recommended users as keys and their mutual friends in a list. If we encounter a mutual friend with value -1 then they are already friends and we set the list of mutual friends to null.
+\item We then sort the HashMap by transforming it into a TreeMap. We need to implement a Comparator for the TreeMap. This Comparator sorts the items of the HashMap in descending order, based on the size of their mutual Friends List.
+\item Finally, we write the 10 friends with the most mutual friends (or less if there are not that many.
+\end{enumerate}
+
+\subsection*{Recommendations for Specified Users}
+924	$\rightarrow$	439,2409,6995,11860,15416,43748,45881 \\
+8941 $\rightarrow$	8943,8944,8940 \\
+8942 $\rightarrow$	8939,8940,8943,8944\\
+9019 $\rightarrow$   9022,317,9023\\
+9020 $\rightarrow$	9021,9016,9017,9022,317,9023\\
+9021 $\rightarrow$	9020,9016,9017,9022,317,9023\\
+9022 $\rightarrow$	9019,9020,9021,317,9016,9017,9023\\
+9090 $\rightarrow$	16380,961,1347,1357,1371,1379,1380,1385,1390,1392\\
+9092 $\rightarrow$	9095,546,1357,2196,2694,2773,2812,3937,5231,5957\\
+9093 $\rightarrow$	142,5040,6157,14284,21298,42704,48442,125,338,2196\\
+
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
 
