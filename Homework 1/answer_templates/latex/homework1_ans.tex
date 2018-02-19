@@ -70,7 +70,8 @@ for (user : Users)
 
 \subsection*{Reduce Phase} 
 We just sum up how many mutual friends they have been between the key and r users. If any of them has mutual friend -1 (m=-1) they are already friends and we don't make that recommendation. 
-Finally we recommend the 10 friends with the most mutual friends (or fewer if there are not that many).
+We create a HashMap with users as keys and the list of recommendations as the value
+Finally we recommend the 10 friends with the most mutual friends (or fewer if there are not that many). 
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
 
