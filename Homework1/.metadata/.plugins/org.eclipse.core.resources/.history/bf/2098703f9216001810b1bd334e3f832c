@@ -36,13 +36,11 @@ public class Apriori {
 			System.out.println(freqItems.size());
 			//remove items with value less than 100
 			for(String key: freqItems.keySet()){
-				if(freqItems.get(key)>=support){
+				if(freqItems.get(key)<=support){
 					supportedItems.put(key, freqItems.get(key));
 				}
 			}
 			System.out.println(supportedItems.size());
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

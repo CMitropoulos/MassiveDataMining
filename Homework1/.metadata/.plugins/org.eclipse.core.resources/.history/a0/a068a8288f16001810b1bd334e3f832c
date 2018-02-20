@@ -1,0 +1,21 @@
+package apriori;
+
+import java.util.HashMap;
+
+public class Apriori {
+	
+	public static HashMap<String, Integer> firstPass(String){
+		
+	}
+	
+	public static void main(String[] args) {
+		//read the file - each line a string
+		BufferedReader reader = null;
+		
+		try{
+			File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
+		}
+
+	}
+
+}

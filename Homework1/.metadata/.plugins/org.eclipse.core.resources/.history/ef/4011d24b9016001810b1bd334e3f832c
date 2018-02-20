@@ -1,0 +1,35 @@
+package apriori;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Apriori {
+
+	
+	public static void main(String[] args) {
+		// read the file - each line a string
+		BufferedReader reader = null;
+
+		try {
+			File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
+		    reader = new BufferedReader(new FileReader(file));
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				line.split(" ");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+}

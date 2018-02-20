@@ -41,8 +41,6 @@ public class Apriori {
 				}
 			}
 			System.out.println(supportedItems.size());
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
