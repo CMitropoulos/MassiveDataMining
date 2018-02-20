@@ -1,19 +1,16 @@
 \documentclass[11pt]{article}
+\title{\LARGE{\bf \textsf{CS550: Massive Data Mining and Learning}}\\ {\bf \textsf{Homework 1}}}
+\author{Christos Mitropoulos - cm1012}
+\date{}
 \usepackage{fullpage}
 \usepackage{url}
 \usepackage{listings}
-\begin{document}
-\thispagestyle{empty}
-\parindent 0pt
-\vfill
-\large
+\usepackage{amsmath}
 
-\begin{center}
-\LARGE{\bf \textsf{CS550: Massive Data Mining and Learning}}\\ {\bf \textsf{Homework 1}} 
-\\*[4ex]
-Due 11:59pm Sunday, February 25, 2018\\
-Only one late period is allowed for this homework (11:59pm Monday 2/26)
-\end{center}
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
 
 \pagebreak[4]
 \begin{center}
@@ -36,7 +33,7 @@ Discussion Group (People with whom you discussed ideas used in your answers):
  Georgios Chantzialexiou \\\\\\
 On-line or hardcopy documents used as part of your answers: \\\\\\
 \vfill
-
+FriendRecommendation.java, FriendRecommendationResults/
 \vfill
 
 I acknowledge and accept the Honor Code.\\*[3ex]
@@ -92,10 +89,44 @@ More specifically:\\
 
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
-
+Confidence ignores Pr(B) since it is defined as the probability of occurrence of B int the basket if the basket already contains A. This is a drawback, since items with high support that are contained in many baskets will naturally produce large confidence values with many items. A real life scenario would be the following:\\
+A lot of people buy milk. Since milk is contained in most of the baskets, it will yield high confidence values with items that are not necessarily associated with milk and therefore we will come up with many association rules that are not necessarily useful. If we give the store managers a million association rules that meet our thresholds for confidence, they cannot even read them, let alone act on them. \\
+Lift does not suffer from this drawback because it takes into account the Support(B) int the denominator. The more common item B is, the lower lift value it will yield for the same confidence value. In the previous example with the milk, since milk is really common, its $S(B) = \frac{Support(B)}{N}$ will be higher and therefore the $lift(A\rightarrow B)$ will be lower.\\
+Conviction also depends from the Support(B). Similar to lift, the higher the Support(B) is the smaller the conviction value will be.\\
+In conclusion, conviction and Lift do not suffer from this drawback since they take into account the Support(B) and common items like milk that appear in almost any basket will not provide us with useless association rules.
 \pagebreak[4]
 \section*{Answer to Question 2(b)}
-
+I will use the Proof by Contradiction method to prove that the measures are not symmetrical. Unless we end up in something that is always true, the initial statement is not true.
+\subsection*{Confidence}
+Assume for the sake of contradiction that Confidence is a symmetrical measure. Also assume that A, B are different items. Then:\\
+\begin{center}
+$ conf(A \rightarrow B) =  conf(B \rightarrow A) \Leftrightarrow$ \\
+$ P(B|A) = P(A|B) \Leftrightarrow$\\
+$ \frac{P(A\cap B)}{P(A)} = \frac{P(B\cap A)}{P(B)}   \Leftrightarrow$\\
+$  \frac{1}{P(A)} = \frac{1}{P(B)}\Leftrightarrow$\\
+$ P(A) = P(B) $\\
+which is not always true for all items A, B. Therefore \textbf{Confidence is not symmetrical.}
+\end{center}
+\subsection*{Lift}
+Assume for the sake of contradiction that Lift is a symmetrical measure. Also assume that A, B are different items. Then:\\
+\begin{center}
+$ lift(A \rightarrow B) =  lift(B \rightarrow A) \Leftrightarrow$ \\
+$ \frac{conf(A \rightarrow B)}{S(B)} =  \frac{conf(B \rightarrow A)}{S(A)} \Leftrightarrow$ \\
+$ \frac{P(B|A)\times N}{Support(B)} =  \frac{P(A|B)\times N}{Support(A)} \Leftrightarrow$ \\
+$ \frac{P(A\cap B)}{P(A)\times Support(B)} = \frac{P(B\cap A)}{P(B)\times Support(A)}   \Leftrightarrow$\\
+$ P(A)\times Support(B) = P(B)\times Support(A) \Leftrightarrow$\\
+$ \frac{P(A)}{P(B)} = \frac{Support(A)}{Support(B)}$\\
+which is true for all items A, B. Therefore \textbf{Lift is symmetrical.}
+\end{center}
+\subsection*{Conviction}
+I will use a counterexample for Conviction. Assuming we have the following baskets:\\
+Basket1: A, B \\
+Basket2: A\\
+Basket3: B\\
+Basket4: B\\
+Then $ conv(A \rightarrow B) = \frac{1-S(B)}{1 - conf(A \rightarrow B)} = \frac{1 - 0.75}{1 - \frac{0.25}{0.75}} = 0.37$ \\
+$ conv(B \rightarrow A) = \frac{1-S(A)}{1 - conf(B \rightarrow A)} = \frac{1 - 0.75}{1 - \frac{0.25}{0.5}} = 1$\\
+ Therefore \textbf{Conviction is not symmetrical.}
 \pagebreak[4]
 \section*{Answer to Question 2(c)}
 
