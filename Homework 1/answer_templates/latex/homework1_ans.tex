@@ -1,11 +1,13 @@
 \documentclass[11pt]{article}
 \title{\LARGE{\bf \textsf{CS550: Massive Data Mining and Learning}}\\ {\bf \textsf{Homework 1}}}
-\author{Christos Mitropoulos - cm1012}
+\author{Christos Mitropoulos - cm1012 \\ email \href{mailto:c.mitro@rutgers.edu}{c.mitro@rutgers.edu}}
 \date{}
 \usepackage{fullpage}
 \usepackage{url}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{hyperref}
+
 
 \begin{document}
 \begin{titlepage}
@@ -89,14 +91,14 @@ More specifically:\\
 
 \pagebreak[4]
 \section*{Answer to Question 2(a)}
-Confidence ignores Pr(B) since it is defined as the probability of occurrence of B int the basket if the basket already contains A. This is a drawback, since items with high support that are contained in many baskets will naturally produce large confidence values with many items. A real life scenario would be the following:\\
+Confidence ignores Pr(B) since it is defined as the probability of occurrence of B in the basket if the basket already contains A. This is a drawback, since items with high support that are contained in many baskets will naturally produce large confidence values with many items. A real life scenario would be the following:\\
 A lot of people buy milk. Since milk is contained in most of the baskets, it will yield high confidence values with items that are not necessarily associated with milk and therefore we will come up with many association rules that are not necessarily useful. If we give the store managers a million association rules that meet our thresholds for confidence, they cannot even read them, let alone act on them. \\
 Lift does not suffer from this drawback because it takes into account the Support(B) int the denominator. The more common item B is, the lower lift value it will yield for the same confidence value. In the previous example with the milk, since milk is really common, its $S(B) = \frac{Support(B)}{N}$ will be higher and therefore the $lift(A\rightarrow B)$ will be lower.\\
 Conviction also depends from the Support(B). Similar to lift, the higher the Support(B) is the smaller the conviction value will be.\\
 In conclusion, conviction and Lift do not suffer from this drawback since they take into account the Support(B) and common items like milk that appear in almost any basket will not provide us with useless association rules.
 \pagebreak[4]
 \section*{Answer to Question 2(b)}
-I will use the Proof by Contradiction method to prove that the measures are not symmetrical. Unless we end up in something that is always true, the initial statement is not true.
+I will use the Proof by Contradiction method for Confidence and Lift to prove if the measures are symmetrical. Unless we end up in something that is always true, the initial statement is not true. I will prove that Conviction is not symmetrical with a counterexample.
 \subsection*{Confidence}
 Assume for the sake of contradiction that Confidence is a symmetrical measure. Also assume that A, B are different items. Then:\\
 \begin{center}
@@ -129,7 +131,15 @@ $ conv(B \rightarrow A) = \frac{1-S(A)}{1 - conf(B \rightarrow A)} = \frac{1 - 0
  Therefore \textbf{Conviction is not symmetrical.}
 \pagebreak[4]
 \section*{Answer to Question 2(c)}
-
+\subsection*{Confidence}
+We know that
+$conf( A \rightarrow B) = P(B|A) = \frac{P(A\cap B)}{P(A)}$. \\
+So  $conf( A \rightarrow B)$ will be max when $P(A\cap B) = P(A)$. This is true when $A\subset B$.\\
+However, when $A\subset B$ we have a perfect implication since whenever A is selected we are certain that B will be selected too. Therefore, \textbf{Confidence is a desirable measure.}
+\subsection*{Lift}
+Lift depends on the value of $P(B)$ and we may find B in baskets which do not contain A. \textbf{Lift is not a desirable measure.}
+\subsection*{Conviction}
+Conviction maximum value is infinity, when confidence gets its maximum value, which is 1. \textbf{Conviction is a desirable measure.}
 \pagebreak[4]
 \section*{Answer to Question 2(d)}
 
