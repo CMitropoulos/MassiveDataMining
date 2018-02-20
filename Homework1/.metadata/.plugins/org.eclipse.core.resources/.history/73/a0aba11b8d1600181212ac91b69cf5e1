@@ -1,0 +1,21 @@
+package apriori;
+
+import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Apriori {
+	
+	public static HashMap<String, Integer> firstPass(String){
+		
+	}
+	
+	public static void main(String[] args) {
+		//read the file - each line a string
+		Buffere
+
+	}
+
+}

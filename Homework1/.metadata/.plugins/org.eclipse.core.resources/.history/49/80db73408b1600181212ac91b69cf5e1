@@ -1,0 +1,16 @@
+package apriori;
+
+import java.util.HashMap;
+
+public class Apriori {
+	
+	public static HashMap<String, Integer> firstPass{
+		HashMap<String, Integer> firstPassMap = new HashMap<>();
+		return firstPassMap;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
