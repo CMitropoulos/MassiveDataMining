@@ -1,15 +1,15 @@
 package apriori;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.xml.ws.AsyncHandler;
 
 public class Apriori {
 
@@ -62,13 +62,17 @@ public class Apriori {
 
 		HashSet<String> set = new HashSet<>();
 		for (int i = 0; i < items.length; i++) {
+			set = new HashSet<>();
 
 			// item is in the supported items
 			if (supportedItems.containsKey(items[i])) {
 				set.add(items[i]);
+				//System.out.println("SET: " + set);
 				// System.out.println("SET IN THIRD PASS -1 : " + set);
 				for (int j = i + 1; j < items.length; j++) {
 					set.add(items[j]);
+					//System.out.println("SET: " + set);
+
 					// System.out.println("Checking :" + items[j]);
 
 					// System.out.println("SET IN THIRD PASS -2 : " + set);
@@ -80,21 +84,19 @@ public class Apriori {
 						for (int k = j + 1; k < items.length; k++) {
 							if (supportedItems.containsKey(items[k])) {
 								set.add(items[k]);
-								// System.out.println("SET IN THIRD PASS -3 : "
-								// + set);
-								// System.out.println("Candidate triples -
-								// before check " + candidateTriples);
+								//System.out.println("SET: " + set);
+
+								 //System.out.println("SET IN THIRD PASS -3 : " + set);
+								//System.out.println("Candidate triples - before check " + candidateTriples);
 								if (candidateTriples.containsKey(set)) { // already
 																			// seen
 									candidateTriples.put(new HashSet<>(set), candidateTriples.get(set) + 1);
-									// System.out.println("Candidate triples -
-									// already seen: " + candidateTriples);
+									//System.out.println("Candidate triples - already seen: " + candidateTriples);
 									break;
 
 								} else {
 									candidateTriples.put(new HashSet<>(set), 1);
-									// System.out.println("Candidate triples
-									// -first seen: " + candidateTriples);
+									 //System.out.println("Candidate triples-first seen: " + candidateTriples);
 									break;
 								}
 							}
@@ -148,9 +150,12 @@ public class Apriori {
 			set13.add(key1);
 			set13.add(key3);
 
-			confidenceOfTriples.put(set12.toString()+"->"+key3, (float) triples.get(triple) / supportedPairs.get(set12));
-			confidenceOfTriples.put(set23.toString()+"->"+key1, (float) triples.get(triple) / supportedPairs.get(set23));
-			confidenceOfTriples.put(set13.toString()+"->"+key2, (float) triples.get(triple) / supportedPairs.get(set13));
+			confidenceOfTriples.put(set12.toString() + "->" + key3,
+					(float) triples.get(triple) / supportedPairs.get(set12));
+			confidenceOfTriples.put(set23.toString() + "->" + key1,
+					(float) triples.get(triple) / supportedPairs.get(set23));
+			confidenceOfTriples.put(set13.toString() + "->" + key2,
+					(float) triples.get(triple) / supportedPairs.get(set13));
 		}
 
 	}
@@ -158,7 +163,7 @@ public class Apriori {
 	public static void main(String[] args) {
 		File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
 		BufferedReader reader = null;
-		int support = 100;
+		int support = 2;
 		// first pass
 		try {
 			reader = new BufferedReader(new FileReader(file));
@@ -214,12 +219,10 @@ public class Apriori {
 
 			// Compute confidence of supported pairs
 			computeConfidencePairs(supportedPairs);
-			// TODO: Save the confidenceOfPairs in a csv for picking the top 5
 
-			/*
-			 * for(String s: confidenceOfPairs.keySet()){ System.out.println(s
-			 * +" "+confidenceOfPairs.get(s)); }
-			 */
+			/*for (String s : confidenceOfPairs.keySet()) {
+				System.out.println(s + ", " + confidenceOfPairs.get(s));
+			}*/
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -242,7 +245,7 @@ public class Apriori {
 				thirdPass(items);
 			}
 
-			System.out.println("Candidate triples size: " + candidateTriples.size());
+			//System.out.println("Candidate triples size: " + candidateTriples.size());
 			// System.out.println("Candidate triples: " + candidateTriples);
 			// remove triples with support less than 100
 
@@ -253,7 +256,7 @@ public class Apriori {
 				}
 			}
 
-			System.out.println("Supported triples size: " + supportedTriples.size());
+			System.out.println("Supported triples size: " +	supportedTriples.size());
 			// Print out all triples
 
 			/*
@@ -262,12 +265,14 @@ public class Apriori {
 			 */
 			// Compute confidence of supported pairs
 			computeConfidenceTriples(supportedTriples);
-			// TODO: Save the confidenceOfPairs in a csv for picking the top 5
-
-			
-			 for(String s: confidenceOfTriples.keySet())
-			 { System.out.println(s +": "+confidenceOfTriples.get(s)); }
-			 
+			BufferedWriter writer = new BufferedWriter(new FileWriter("/home/mitro/Desktop/triplesconfidence.csv"));
+		    
+		     
+		   
+			for (String s : confidenceOfTriples.keySet()) {
+				writer.write(s + ", " + confidenceOfTriples.get(s)+"\n");
+			}
+			 writer.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
