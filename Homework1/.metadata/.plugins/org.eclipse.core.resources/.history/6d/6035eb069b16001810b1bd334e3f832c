@@ -34,14 +34,9 @@ public class Apriori {
 						HashSet<String> set = new HashSet<>();
 						set.add(item);
 						set.add(items[i]);
-						if (freqPairs.containsKey(set)) { // already seen the
-															// item
-							freqPairs.put(set, freqPairs.get(set) + 1);
-						} else {
-							freqPairs.put(set, 1);
-						}
+						freqPairs.put(set, 1);
 					}
-
+					
 				}
 
 			}
@@ -88,20 +83,8 @@ public class Apriori {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] items = line.split(" ");
-				secondPass(items);
-			}
 
-			System.out.println("Frequent pairs" + freqPairs.size());
-			// remove pairs with support less than 100
-			for (HashSet<String> set : freqPairs.keySet()) {
-				if (freqPairs.get(set) >= support) {
-					supportedPairs.put(set, freqPairs.get(set));
-				}
 			}
-			for (HashSet<String> set : supportedPairs.keySet()) {
-				System.out.println(set + ":"+ supportedPairs.get(set));
-			}
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();

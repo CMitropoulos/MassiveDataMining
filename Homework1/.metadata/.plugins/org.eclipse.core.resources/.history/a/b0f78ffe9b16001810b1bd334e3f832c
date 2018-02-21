@@ -99,7 +99,7 @@ public class Apriori {
 				}
 			}
 			for (HashSet<String> set : supportedPairs.keySet()) {
-				System.out.println(set + ":"+ supportedPairs.get(set));
+				System.out.println("Supported Pairs: "+supportedPairs.size());
 			}
 			
 
