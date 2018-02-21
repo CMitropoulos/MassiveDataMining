@@ -9,35 +9,40 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.xml.ws.AsyncHandler;
+
 public class Apriori {
 
-	public static HashMap<String, Integer> candidatetems = new HashMap<>();
+	public static HashMap<String, Integer> candidateItems = new HashMap<>();
 	public static HashMap<String, Integer> supportedItems = new HashMap<>();
+
 	public static HashMap<HashSet<String>, Integer> candidatePairs = new HashMap<>();
 	public static HashMap<HashSet<String>, Integer> supportedPairs = new HashMap<>();
 	public static HashMap<String, Float> confidenceOfPairs = new HashMap<>();
+
 	public static HashMap<HashSet<String>, Integer> candidateTriples = new HashMap<>();
 	public static HashMap<HashSet<String>, Integer> supportedTriples = new HashMap<>();
+	public static HashMap<String, Float> confidenceOfTriples = new HashMap<>();
 
 	public static void firstPass(String[] items) {
 		for (String item : items) {
-			if (candidatetems.containsKey(item)) { // already seen the item
-				candidatetems.put(item, candidatetems.get(item) + 1);
+			if (candidateItems.containsKey(item)) { // already seen the item
+				candidateItems.put(item, candidateItems.get(item) + 1);
 			} else {
-				candidatetems.put(item, 1);
+				candidateItems.put(item, 1);
 			}
 		}
 	}
 
 	public static void secondPass(String[] items) {
-		for (String item : items) {
-			if (supportedItems.containsKey(item)) {
+		for (int i = 0; i < items.length; i++) {
+			if (supportedItems.containsKey(items[i])) {
 				// add all pairs of the items with this item
-				for (int i = 0; i < items.length; i++) {
-					if (items[i] != item) {
+				for (int j = i + 1; j < items.length; j++) {
+					if (supportedItems.containsKey(items[j])) {
 						HashSet<String> set = new HashSet<>();
-						set.add(item);
 						set.add(items[i]);
+						set.add(items[j]);
 						if (candidatePairs.containsKey(set)) { // already seen
 																// the
 																// item
@@ -54,38 +59,55 @@ public class Apriori {
 	}
 
 	public static void thirdPass(String[] items) {
-		for (String item : items) {
-			HashSet<String> set = new HashSet<>();
-			if (supportedItems.containsKey(item)) { // item is in the supported
-													// items
 
-				set.add(item);
-				for (int i = 0; i < items.length; i++) {
-					if (!set.contains(items[i])) {
-						set.add(items[i]);
-						if (supportedPairs.containsKey(set)) { // pair is in the
-																// supported
-																// pairs
+		HashSet<String> set = new HashSet<>();
+		for (int i = 0; i < items.length; i++) {
 
-							for (int j = 0; j < items.length; j++) {
-								if (!set.contains(items[j])&& supportedItems.containsKey(items[j])) {
-									set.add(items[j]);
-									if (candidateTriples.containsKey(set)) {
-										candidateTriples.put(set, candidateTriples.get(set) + 1);
-									} else {
-										candidateTriples.put(set, 1);
-									}
+			// item is in the supported items
+			if (supportedItems.containsKey(items[i])) {
+				set.add(items[i]);
+				// System.out.println("SET IN THIRD PASS -1 : " + set);
+				for (int j = i + 1; j < items.length; j++) {
+					set.add(items[j]);
+					// System.out.println("Checking :" + items[j]);
 
+					// System.out.println("SET IN THIRD PASS -2 : " + set);
+					// System.out.println("Candidate triples - already seen: " +
+					// candidateTriples);
+					// pair in supported pairs
+					if (supportedPairs.keySet().contains(set)) {
+						// pair is in the supported pairs
+						for (int k = j + 1; k < items.length; k++) {
+							if (supportedItems.containsKey(items[k])) {
+								set.add(items[k]);
+								// System.out.println("SET IN THIRD PASS -3 : "
+								// + set);
+								// System.out.println("Candidate triples -
+								// before check " + candidateTriples);
+								if (candidateTriples.containsKey(set)) { // already
+																			// seen
+									candidateTriples.put(new HashSet<>(set), candidateTriples.get(set) + 1);
+									// System.out.println("Candidate triples -
+									// already seen: " + candidateTriples);
+									break;
+
+								} else {
+									candidateTriples.put(new HashSet<>(set), 1);
+									// System.out.println("Candidate triples
+									// -first seen: " + candidateTriples);
+									break;
 								}
 							}
-						} else {
-							set.remove(items[i]);
 						}
+					} else {
+						set.remove(items[j]);
 					}
-
+					set.remove(items[j]);
 				}
+
 			}
 		}
+
 	}
 
 	private static boolean contained(Set<HashSet<String>> sets, String item) {
@@ -97,7 +119,7 @@ public class Apriori {
 		return false;
 	}
 
-	public static void confidence(HashMap<HashSet<String>, Integer> pairs) {
+	public static void computeConfidencePairs(HashMap<HashSet<String>, Integer> pairs) {
 		for (HashSet<String> pair : pairs.keySet()) {
 			Iterator<String> itr = pair.iterator();
 			String key1 = itr.next().toString();
@@ -108,12 +130,37 @@ public class Apriori {
 		}
 	}
 
+	private static void computeConfidenceTriples(HashMap<HashSet<String>, Integer> triples) {
+		for (HashSet<String> triple : triples.keySet()) {
+			Iterator<String> itr = triple.iterator();
+			String key1 = itr.next().toString();
+			String key2 = itr.next().toString();
+			String key3 = itr.next().toString();
+			HashSet<String> set12 = new HashSet<>();
+			set12.add(key1);
+			set12.add(key2);
+
+			HashSet<String> set23 = new HashSet<>();
+			set23.add(key2);
+			set23.add(key3);
+
+			HashSet<String> set13 = new HashSet<>();
+			set13.add(key1);
+			set13.add(key3);
+
+			confidenceOfTriples.put(set12.toString()+"->"+key3, (float) triples.get(triple) / supportedPairs.get(set12));
+			confidenceOfTriples.put(set23.toString()+"->"+key1, (float) triples.get(triple) / supportedPairs.get(set23));
+			confidenceOfTriples.put(set13.toString()+"->"+key2, (float) triples.get(triple) / supportedPairs.get(set13));
+		}
+
+	}
+
 	public static void main(String[] args) {
-		// read the file - each line a string
+		File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
 		BufferedReader reader = null;
 		int support = 100;
+		// first pass
 		try {
-			File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
 			reader = new BufferedReader(new FileReader(file));
 
 			String line;
@@ -123,12 +170,12 @@ public class Apriori {
 			}
 			// System.out.println(tempItems.size());
 			// remove items with value less than 100
-			for (String key : candidatetems.keySet()) {
-				if (candidatetems.get(key) >= support) {
-					supportedItems.put(key, candidatetems.get(key));
+			for (String key : candidateItems.keySet()) {
+				if (candidateItems.get(key) >= support) {
+					supportedItems.put(key, candidateItems.get(key));
 				}
 			}
-			// System.out.println(supportedItems.size());
+			// System.out.println("Supported items: "+supportedItems);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -142,7 +189,7 @@ public class Apriori {
 
 		// second pass
 		try {
-			File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
+
 			reader = new BufferedReader(new FileReader(file));
 
 			String line;
@@ -160,13 +207,13 @@ public class Apriori {
 			}
 			System.out.println("Supported pairs size: " + supportedPairs.size());
 			// Print out all pairs
-			/*
-			 * for (HashSet<String> set : supportedPairs.keySet()) {
-			 * System.out.println(set + ":"+ supportedPairs.get(set)); }
-			 */
+
+			// for (HashSet<String> set : supportedPairs.keySet()) {
+			// System.out.println(set + ":" + supportedPairs.get(set));
+			// }
 
 			// Compute confidence of supported pairs
-			confidence(supportedPairs);
+			computeConfidencePairs(supportedPairs);
 			// TODO: Save the confidenceOfPairs in a csv for picking the top 5
 
 			/*
@@ -185,7 +232,8 @@ public class Apriori {
 		}
 		// third pass
 		try {
-			File file = new File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
+			// File file = new
+			// File("/home/mitro/Github/MassiveDataMining/Homework1/data/browsing.txt");
 			reader = new BufferedReader(new FileReader(file));
 
 			String line;
@@ -195,27 +243,31 @@ public class Apriori {
 			}
 
 			System.out.println("Candidate triples size: " + candidateTriples.size());
+			// System.out.println("Candidate triples: " + candidateTriples);
 			// remove triples with support less than 100
+
 			for (HashSet<String> set : candidateTriples.keySet()) {
-				if (candidateTriples.get(set) >= support) {
+				// System.out.println("Candidate Set: " + set);
+				if (candidateTriples.get(set) != null && candidateTriples.get(set) >= support) {
 					supportedTriples.put(set, candidateTriples.get(set));
 				}
 			}
+
 			System.out.println("Supported triples size: " + supportedTriples.size());
 			// Print out all triples
 
-			for (HashSet<String> set : supportedTriples.keySet()) {
-				System.out.println(set + ":" + supportedTriples.get(set));
-			}
-
+			/*
+			 * for (HashSet<String> set : supportedTriples.keySet()) {
+			 * System.out.println(set + ":" + supportedTriples.get(set)); }
+			 */
 			// Compute confidence of supported pairs
-
+			computeConfidenceTriples(supportedTriples);
 			// TODO: Save the confidenceOfPairs in a csv for picking the top 5
 
-			/*
-			 * for(String s: confidenceOfPairs.keySet()){ System.out.println(s
-			 * +" "+confidenceOfPairs.get(s)); }
-			 */
+			
+			 for(String s: confidenceOfTriples.keySet())
+			 { System.out.println(s +": "+confidenceOfTriples.get(s)); }
+			 
 
 		} catch (IOException e) {
 			e.printStackTrace();
