@@ -142,29 +142,40 @@ Lift depends on the value of $P(B)$ and we may find B in baskets which do not co
 Conviction maximum value is infinity, when confidence gets its maximum value, which is 1. \textbf{Conviction is a desirable measure.}
 \pagebreak[4]
 \section*{Answer to Question 2(d)}
-conf(DAI93865 -- FRO40251) =	1 \\
-conf(GRO85051 -- FRO40251) =	0.99917626 \\
-conf(GRO38636 -- FRO40251) =	0.99065423 \\
-conf(ELE12951 -- FRO40251) =	0.990566 \\
-conf(DAI88079 -- FRO40251) =	0.9867257 \\
+$conf(DAI93865 \rightarrow FRO40251) =	1$ \\
+$conf(GRO85051 \rightarrow FRO40251) =	0.99917626$ \\
+$conf(GRO38636 \rightarrow FRO40251) =	0.99065423$ \\
+$conf(ELE12951 \rightarrow FRO40251) =	0.990566 $\\
+$conf(DAI88079 \rightarrow FRO40251) =	0.9867257$ \\
 
 
 \pagebreak[4]
 \section*{Answer to Question 2(e)}
-conf(DAI23334,ELE92920 -- DAI62779) = 1 \\
-conf(DAI31081,GRO85051 -- FRO40251) = 1 \\
-conf(DAI55911,GRO85051 -- FRO40251) = 1 \\
-conf(DAI62779,DAI88079 -- FRO40251) = 1 \\
-conf(DAI75645,GRO85051 -- FRO40251 ) = 1 \\
+$conf(DAI23334,ELE92920 \rightarrow DAI62779) = 1 $\\
+$conf(DAI31081,GRO85051 \rightarrow FRO40251) = 1$ \\
+$conf(DAI55911,GRO85051 \rightarrow FRO40251) = 1$ \\
+$conf(DAI62779,DAI88079 \rightarrow FRO40251) = 1$ \\
+$conf(DAI75645,GRO85051 \rightarrow FRO40251 ) = 1$ \\
 \pagebreak[4]
 \section*{Answer to Question 3(a)}
-
+The number of different combinations with m 1's out of n is  $\binom{n}{m}.$ The number of these columns that do not have 1 in any of the k selected rows is $\binom{n-k}{m}.$ So we can easily calculate the the probability of getting "don't know" by dividing $\frac{\binom{n-k}{m}}{\binom{n}{m}}$.\\
+By simplifying this function we get $\frac{n-k}{n}\times \frac{n-k-1}{n-1}\times ... \times \frac{n-k-m+1}{n-m+1}$, where each of these factors is at most $\frac{n-k}{n}$, thus the product is at most $ (\frac{n-k}{n})^{m}$.
 \pagebreak[4]
 \section*{Answer to Question 3(b)}
-
+We want\\
+ $ (\frac{n-k}{n})^{m} \leq e^{-10} \Rightarrow $\\
+  $ (1 - \frac{k}{n})^{m} \leq e^{-10} \Rightarrow $\\
+    $ ((1 - \frac{k}{n})^{\frac{n}{k}})^{\frac{mk}{n}} \leq e^{-10} $\\ Since  $k<<n$ we can approximate $(1 - \frac{k}{n})^{\frac{n}{k}}$ by $\frac{1}{e}$\\
+   Therefore, we want $e^{\frac{-mk}{n}} \leq e^{-10}\Rightarrow$ 
+   $\frac{-mk}{n} \leq -10 \Rightarrow
+     \frac{mk}{n} \geq 10\Rightarrow
+   k \geq \frac{10n}{m}$\\
+   So the lower bound on k is $ \frac{10n}{m}$
+    
 \pagebreak[4]
 \section*{Answer to Question 3(c)}
-
+The two columns (sets) are $[0,0,1]^T and [1,0,1]^T$. $Jaccard similarity = \frac{(001) AND (101)}{(001) OR (101)}=0.5$\\
+All the possible cyclic permutations are: (1,2,3) , (3,1,2) , (2,3,1) and the corresponding minhash values are (3,1) , (1,1) , (1,1). Thus, the probability of same minhash values are $\frac{2}{3}$
 
 
 \end{document}
