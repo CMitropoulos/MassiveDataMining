@@ -7,4 +7,8 @@ This is a repo for the Massive Data Mining Course of Spring '18 @ Rutgers State 
   - Friend Recommendation System - Built with Hadoop
   - Implementation of Apriori Algorithm for finding frequent itemsets in baskets
   - MinHashing problems
+  
+ 2. Homework 2
+  - Singular Value Decomposition
+  - PageRank implementation
 
