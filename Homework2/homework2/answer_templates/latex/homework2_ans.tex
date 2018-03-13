@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \title{\LARGE{\bf \textsf{CS550: Massive Data Mining and Learning}}\\ {\bf \textsf{Homework 2}}}
-\author{Christos Mitropoulos - cm1012 \\ email \href{mailto:c.mitro@rutgers.edu}{c.mitro@rutgers.edu} \\\\ Github repository:\\ \href{https://github.com/CMitropoulos/MassiveDataMining/tree/master/Homework1}{https://github.com/CMitropoulos/MassiveDataMining/tree/master/Homework2}}
+\author{Christos Mitropoulos - cm1012 \\ email \href{mailto:c.mitro@rutgers.edu}{c.mitro@rutgers.edu} \\\\ Github repository:\\ \href{https://github.com/CMitropoulos/MassiveDataMining/tree/master/Homework2}{https://github.com/CMitropoulos/MassiveDataMining/tree/master/Homework2}}
 \date{}
 \usepackage{fullpage}
 \usepackage{url}
@@ -38,7 +38,7 @@ On-line or hardcopy documents used as part of your answers: \\\\\\
 
 I acknowledge and accept the Honor Code.\\*[3ex]
 \bigskip
-\textit{(Signed)}\hrulefill
+\textit{(Signed)} Christos Mitropoulos - CM
 
 If you are not printing this document out, please type your initials above.
 
@@ -47,28 +47,51 @@ If you are not printing this document out, please type your initials above.
 
 \pagebreak[4]
 \section*{Answer to Question 1(a)}
-
+Yes,$MM^{T} and$ $M^{T}M$ are symmetric, square and real.\\
+\begin{itemize}
+\item Symmetric: $(MM^{T})^T = MM^{T}$ and $(M^{T}M)^T = M^{T}M$
+\item Square: Assuming M is a pxq matrix, when M is multiplied by its transpose, a qxp matrix, the result is a square matrix with rxr dimensions.
+\item Real: Since M is a real matrix, the product of M and its transpose will also be real.
+\end{itemize}
 \section*{Answer to Question 1(b)}
-
+Let's assume that e is the eigenvector of $MM^T$ and $\lambda$ its corresponding eigen value so that, $MM^T(e) = \lambda (e)$.
+Multiply both sides of equation by $M^T$and the result is 
+$M^TMM^Te = \lambda (e)$ which can be reduced to 
+$M^TM(M^Te) = \lambda(M^Te)$.Therefore, the eigenvalue of $M^TM = \lambda$ too. However, the eigenvector is $M^Te$ which is different from the eigenvector of $MM^T$ which is e.
 \section*{Answer to Question 1(c)}
-
+$M^TM = Q\Lambda Q^T$
 \section*{Answer to Question 1(d)}
-
+$M^TM = (U \Sigma V^T)^T U \Sigma V^T = V\Sigma^T U^T U\Sigma V^T =   V\Sigma^T \Sigma V^T =  V\Sigma^2 V^T$
 \section*{Answer to Question 1(e)(a)}
+U = array([[-0.27854301,  0.5       ],
+       [-0.27854301, -0.5       ],
+       [-0.64993368,  0.5       ],
+       [-0.64993368, -0.5       ]] \\
+$\Sigma$ =  array([ 7.61577311,  1.41421356] \\
+V = array([[-0.70710678, -0.70710678],
+       [-0.70710678,  0.70710678]])
 
 \section*{Answer to Question 1(e)(b)}
-
+58.0: [ 0.70710678  0.70710678]\\
+2.0: [-0.70710678  0.70710678]
 \section*{Answer to Question 1(e)(c)}
-
+The matrix of eigenvectors is equivalent to the V if we reorder the columns based on the ordering of singular values.
 \section*{Answer to Question 1(e)(d)}
-
+The singular values of M are square roots of the eigenvalues of $M^TM$
 \section*{Answer to Question 2(a)}
-
+We need to prove that: 
+$\sum_{i=1}^{n}\sum_{j=1}^{n}{M_{ij}r_j} = \sum_{i=1}^{n}{r_i} $ \\
+However, $\sum_{i=1}^{n}{M_{ij}} =1  $ for each j, thus this is True.
 \section*{Answer to Question 2(b)}
-
+Let's calculate w(r') first. \\
+$ w(r') = \sum_{i=1}^{n}\beta \sum_{j=1}^{n}{M_{ij}r_j} + \sum_{i=1}^{n}(1-\beta)/n$ \\
+The second term sums to 1 - $\beta$ and from (a) the first term sums to $\beta\sum_{j=1}^{n}r_j $\\
+Thus, $w(r') =\beta w(r) +1-\beta $. Setting $ w(r) = w(r')= x$ and solving for x, we get that the equation is true if and only if $ w(r) = w(r')= 1$
 \section*{Answer to Question 2(c)(a)}
-
+The equation is $ r_i' = \beta\sum_{j=1}^{n}M_{ij}r_j + (1-\beta)/n + (\beta/n)\sum_{dead_j}r_j $ 
 \section*{Answer to Question 2(c)(b)}
+Summing over $M_{ij}$ as we did in 2(a) we get $w(r') = \beta \sum_{livej}r_j + 1 - \beta + \beta \sum_{deadj}r_j. $\\
+The first and last terms give us $\beta w(r)$ which is actually $\beta$ since w(r) is supposed to be 1. Thus, the right side is 1 as well.
 
 \section*{Answer to Question 3(a)}
 
