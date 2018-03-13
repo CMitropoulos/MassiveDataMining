@@ -51,10 +51,10 @@ sorted_rank_dictionary = sorted(rank_dictionary.items(), key=operator.itemgetter
 #print the top 5
 print("TOP 5")
 for i in range(int(n)-1,int(n)-6, -1):
-    print( sorted_rank_dictionary[i])
+    print("ID: ", sorted_rank_dictionary[i][0]+1, ",score: ",sorted_rank_dictionary[i][1])
 print("\n")
 #print the bottom 5
 print("BOTTOM 5")
 for i in range(0,5):
-    print( sorted_rank_dictionary[i])
+    print("ID: ", sorted_rank_dictionary[i][0]+1, ",score: ",sorted_rank_dictionary[i][1])
     
