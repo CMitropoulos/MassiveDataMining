@@ -8,7 +8,7 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{comment}
-
+\usepackage{graphicx}
 \begin{document}
 \begin{titlepage}
 \maketitle
@@ -109,10 +109,12 @@ BOTTOM 5:\\
 ('ID: ', 37, ',score: ', array([ 0.0038082]))\\
 ('ID: ', 89, ',score: ', array([ 0.00392247]))\\
 
-\section*{Answer to Question 4}
-I was unable to completely finish this question, however I attach a Hadoop implementation of K-Means and I will try to answer intuitively. \\
-Both plots will look like an $e^{-x}$. Since the cost will be getting smaller after iteration. 
-However, the cost for c2 initialization drops faster, since the clusters are distributed far apart. This is also known as K-Means++ initialization technique and because there is less overlap between clusters, true clusters will be split less often. We reach convergence faster. 
+\section*{Answer to Question 4(a)}
+\includegraphics{c1_cost} \\
+\includegraphics{c2_cost} 
 
+\section*{Answer to Question 4(b)}
+The cost for c2 initialization drops faster, since the clusters are distributed far apart. Since there is less overlap between clusters, true clusters will be split less often. We reach convergence faster.
+The percentage improvement after 10 iterations for c1 initialization is 0.10 and for c2 initialization is 0.59.
 \end{document}
 
