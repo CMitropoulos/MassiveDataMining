@@ -38,10 +38,8 @@ On-line or hardcopy documents used as part of your answers: \\\\\\
 
 I acknowledge and accept the Honor Code.\\*[3ex]
 \bigskip
-\textit{(Signed)}\hrulefill
-
-If you are not printing this document out, please type your initials above.
-
+\textit{(Signed)}
+Christos Mitropoulos 
 \vfill
 \vfill
 
@@ -59,11 +57,20 @@ If you are not printing this document out, please type your initials above.
 \section*{Answer to Question 2(c)}
 
 \section*{Answer to Question 3(a)}
-
+By definition $C_i$ is a clique if there are fewer than two nodes in it. 
+In any other case, any two nodes in $C_i$ have an edge between them since they have i as a common factor.
 \section*{Answer to Question 3(b)}
-
+i must be a prime number $\leq$ 1,000,000 
+\begin{itemize}
+\item If i is $\leq$ 1,000,000 but isn't prime, let j be a factor of i and 
+1 < j < i. Node j is not in $C_i$, however it has an edge to every member of $C_i$, since it has j as a common factor. Therefore, $C_i$ is not maximal.
+\item If i is $\geq$ 1,000,000  then $C_i$ is the empty clique and adding one node will make it a 1-clique, which is not maximal.
+\item If i is prime and $\leq$ 1,000,000 then there is no node outside $C_i$ that has an edge to the node i itself. Suppose there was a node j like that. Then i and j have a common factor other than 1, which can only be i, since i is prime. This makes j a multiple of i since j has i as a factor and therefore j is already in $C_i$.
+\end{itemize}
 \section*{Answer to Question 3(c)}
-
+i and i+1 are always relatively prime. If they had a common factor p>1 then (i+1) - i =1 must also be divisible by p and this is impossible for any p>1.
+Only one of the {2,3},{4,5},{6,7},{8,9},... can be in a clique. The largest possible clique has 500,000 members as $C_2$.\\
+There are no cliques other than $C_2$ that have 500,000 members. For a clique to have 500,000 members, it must contain 2 or 3, since otherwise the clique will have at most 499,999 members. If it contains 3, then all other members must have 3 as a factor (3 being a prime) and there less than 499,999 elements that are divisible by 3.
 
 \end{document}
 
