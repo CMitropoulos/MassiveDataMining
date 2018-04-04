@@ -44,11 +44,36 @@ Christos Mitropoulos
 \vfill
 
 \pagebreak[4]
+\section*{Answer to Question 1}
+The graphs and the plots were created with networkx python library. The code will be also attached as modularity.py.
 \section*{Answer to Question 1(a)}
+\begin{figure}[h]
+\caption{This is the Graph after removing the edge (A, G).}
+\centering
+\includegraphics[width=0.5\textwidth]{./figures/G_a}
+\end{figure}
+Modularity =  -0.14049586776859507
 
 \section*{Answer to Question 1(b)}
+\begin{figure}[h]
+\caption{This is the Graph after adding the edge (E, H).}
+\centering
+\includegraphics[width=0.5\textwidth]{./figures/G_b}
+\end{figure}
+Modularity =  -0.13194444444444442
+
+We see that the modularity was increased. This can be explained by the extra edge added in one of the groups identified before. This makes the group stronger and therefore the overall modularity is increased.
 
 \section*{Answer to Question 1(c)}
+\begin{figure}[h]
+\caption{This is the Graph after adding the edge (F, A).}
+\centering
+\includegraphics[width=0.5\textwidth]{./figures/G_c}
+\end{figure}
+Modularity =  -0.14236111111111108
+
+We see that the modularity decreased. This can be explained by the edge that we added. This edge connects two nodes that belong to different groups and therefore the groups become less strong and therefore the modularity decreases.
+
 
 \section*{Answer to Question 2(a)}
 
