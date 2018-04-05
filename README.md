@@ -12,3 +12,7 @@ This is a repo for the Massive Data Mining Course of Spring '18 @ Rutgers State 
   - Singular Value Decomposition
   - PageRank implementation
 
+3. Homework 3
+  - Modularity of Graphs
+  - Spectral Clustering
+  - Clique-Based Communities
