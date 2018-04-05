@@ -9,6 +9,8 @@
 \usepackage{hyperref}
 \usepackage{comment}
 \usepackage{graphicx}
+\usepackage{float}
+
 \begin{document}
 \begin{titlepage}
 \maketitle
@@ -44,8 +46,8 @@ Christos Mitropoulos
 \vfill
 
 \pagebreak[4]
-\section*{Answer to Question 1}
-The graphs and the plots were created with networkx python library. The code will be also attached as modularity.py.
+\section*{Answer to Question 1,2}
+The graphs and the plots were created with networkx python library. The code will be also attached as graphs.py.
 \section*{Answer to Question 1(a)}
 \begin{figure}[h]
 \caption{This is the Graph after removing the edge (A, G).}
@@ -76,11 +78,40 @@ We see that the modularity decreased. This can be explained by the edge that we 
 
 
 \section*{Answer to Question 2(a)}
+Adjacency matrix: 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{./figures/adjacency}
+\end{figure}
+
+Degree matrix:\\
+{'A': 4, 'B': 3, 'C': 3, 'D': 3, 'E': 2, 'F': 2, 'G': 4, 'H': 1}\\
+
+Laplacian matrix: 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{./figures/Laplacian}
+\end{figure}
 
 \section*{Answer to Question 2(b)}
+Laplacian eigenvalues:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{./figures/L_eigval}
+\end{figure}
+
+Laplacian eigenvectors:
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{./figures/L_eigvec}
+\end{figure}
 
 \section*{Answer to Question 2(c)}
-
+This is the eigenvector for the second smallest eigenvalue:\\
+$[0.24701774,  0.38252766,  0.38252766,  0.38252766, -0.38252766, -0.38252766, -0.24701774, -0.38252766]$ \\
+Using 0 as boundary we partition the graph into two communities. The first community contains the nodes that have negative eigenvector value and the second community contains the nodes that have a positive eigenvector value. \\
+Thus the graph partitioning is the following: \\
+Nodes A, B, C, D belong to the first community and nodes E, F, G, H belong to the second community.
 \section*{Answer to Question 3(a)}
 By definition $C_i$ is a clique if there are fewer than two nodes in it. 
 In any other case, any two nodes in $C_i$ have an edge between them since they have i as a common factor.
