@@ -18,7 +18,7 @@ G.add_edges_from([("E","F"),("E","G"), ("F","G"), ("G","H")])
 #nx.draw(G, with_labels=True)
 
 
-communities = {"A":0, "B":0, "C":0, "D":0, "E":1, "F":1, "G":1, "H":1}
+communities = [{"A", "B", "C", "D"},{"E", "F", "G", "H"}]
 #Question 1(a)
 G_a = nx.Graph(G)
 G_a.remove_edge("A","G")
@@ -35,7 +35,8 @@ print("modularity for question 1b: ", mod_b)
 
 #Question 1(c)
 G_c = nx.Graph(G)
-G_c.add_edge("F","A")
+#G_c.add_edge("F","A")
+G_c.add_edge("A","F")
 mod_c = nx.community.modularity(G_c, communities)
 print("modularity for question 1c: ", mod_c)
 #nx.draw(G_c, with_labels=True)
