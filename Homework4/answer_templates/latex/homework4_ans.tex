@@ -32,11 +32,6 @@
 
 Discussion Group (People with whom you discussed ideas used in your answers):
 
- Georgios Chantzialexiou \\\\\\
-On-line or hardcopy documents used as part of your answers: \\\\\\
-\vfill
-FriendRecommendation.java, FriendRecommendationResults/, Apriori.java, FrequentItemSetsResults/
-\vfill
 
 I acknowledge and accept the Honor Code.\\*[3ex]
 \bigskip
@@ -50,19 +45,18 @@ If you are not printing this document out, please type your initials above.
 
 \pagebreak[4]
 \section*{Answer to Question 1}
-<<<<<<< HEAD
 Let $T(x) = argmin_{t\in T}d(t,x)$. For any $x \in S_{ij}$ by triangle inequality we get 
 $d(x, T(x)) \leq d(x, T(t_{ij}) \leq d(x, t_{ij}) + d(t_{ij}, T(t_{ij})) = d(x, t_{ij}) + d(t_{ij}, T)$ \\
 From the small fact given in the question, $d(x,T)^2 \leq 2d(x, t_{ij})^2 + 2d(t_{ij},T)^2 $ \\
 We get the result by summing up over all i, j, x.
-=======
 
->>>>>>> 89209fd... hw4 first commit
 \section*{Answer to Question 2}
-
+Assume $T^{*}_i$ is the optimal clustering for $S_i (i \in [1, l])$. Then $cost(S_i, T_i) \leq a\times cost(S_i, T^{*}_i) \leq a \times cost(S_i, T^{*})$. 
+Similar like before we get the result by summing over all i.
 \section*{Answer to Question 3}
-
-
+If $\hat{T^*}$ is the best clustering for $\hat{S}$, then: $cost_w(\hat{S},T)\leq a \times cost_w(\hat{S},\hat{T^*}) \leq a \times cost_w(\hat{S},T^*) $
+As we did in part (a) for any $x \in S_{ij}, i \in [1, l] , j \in [1, k]$, we  get:
+ $d(t_{ij},T^*)^2 \leq 2d(t_{ij}, x)^2 + 2d(x,T^*)^2 $. Summing over all i, j, x provides the result.
 
 \end{document}
 
